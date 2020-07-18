@@ -2,13 +2,13 @@ version: 2.1
 
 orbs:
   python: circleci/python@0.2.1
+  python-lint: qventus/python-lint@0.0.6
+
 
 commands:
   python-test:
     steps:
-      - run: |
-        pip install pylint
-        pylint -d=R,W,C jobs/
+      - pylint/lint -d=R,W,C jobs/
           
 #             
 #             python -m jobs.jobs.restore_prod_dumps
