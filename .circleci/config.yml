@@ -4,6 +4,12 @@ orbs:
   python: circleci/python@0.2.1
 
 commands:
+
+  opt-permission:
+    steps:
+       - run: mkdir -p /opt/app
+       - run: chown -R $USER:$USER /opt/app
+
   python-test:
     steps:
       - run: pip install pylint
