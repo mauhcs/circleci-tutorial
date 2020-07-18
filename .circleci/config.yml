@@ -6,9 +6,11 @@ orbs:
 commands:
   python-test:
     steps:
-      - run: 
-          command: |
-            pip install pylint
+      - run:
+        command: pip install pylint
+      - python/save-cache
+      - run:
+          command: | 
             pylint -d=R,W,C jobs/
           
 #             
