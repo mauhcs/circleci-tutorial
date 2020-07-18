@@ -5,4 +5,4 @@ WORKDIR /opt/app
 ADD requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-RUN python jobs/main.py
+CMD python jobs/main.py
