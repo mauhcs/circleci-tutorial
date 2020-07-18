@@ -40,9 +40,9 @@ workflows:
   build-test:
     jobs:
       - build-test
-      - deploy-job
-        requires:
-          - build-and-test # Only deploy once the build job has completed
-        filters:
-          branches:
-            only: master # Only deploy on the master branch        
+      - deploy
+          requires:
+            - build-test # Only deploy once the build job has completed
+          filters:
+            branches:
+              only: master # Only deploy on the master branch        
