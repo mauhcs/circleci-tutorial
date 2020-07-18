@@ -7,7 +7,7 @@ commands:
   python-test:
     steps:
       - run: 
-        commands: |
+        command: |
           pip install pylint
           pylint -d=R,W,C jobs/
           
