@@ -4,12 +4,6 @@ orbs:
   python: circleci/python@0.2.1
 
 commands:
-
-  opt-permission:
-    steps:
-       - run: sudo mkdir -p /opt/app
-       - run: sudo chown -R $USER:$USER /opt/app
-
   python-test:
     steps:
       - run: pip install pylint
@@ -22,7 +16,7 @@ commands:
 
 jobs:
   build-test:
-    working_directory: /opt/app
+    working_directory: ~/app
     executor: python/default
     steps:
       - checkout
