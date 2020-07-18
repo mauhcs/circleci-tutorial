@@ -19,7 +19,6 @@ jobs:
       - run:
           command: pylint -d=R,W,C jobs/
 
-
   deploy:
     working_directory: ~/app
     executor: python/default    
