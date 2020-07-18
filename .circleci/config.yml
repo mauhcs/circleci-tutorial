@@ -7,7 +7,6 @@ commands:
   python-test:
     steps:
       - run: pip install pylint
-      - run: 
       - run: pylint -d=R,W,C jobs/
           
 #             
