@@ -18,7 +18,7 @@ jobs:
           command: pip install pylint
       - python/save-cache
       - run:
-          command: apt-get install pylint
+          command: sudo apt-get install pylint
       - run:
           command: which pylint #pylint -d=R,W,C jobs/
 
