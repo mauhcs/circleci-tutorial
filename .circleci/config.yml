@@ -18,7 +18,13 @@ jobs:
           command: pip install pylint
       - python/save-cache
       - run:
-          command: ls /home/circleci/.local/lib/python3.8 #pylint -d=R,W,C jobs/
+          command: which pylint #pylint -d=R,W,C jobs/
+      - run:
+          command: apt-get install pylint
+      - run:
+        command: which pylint #pylint -d=R,W,C jobs/
+
+
 
 #   deploy-job:
 #     working_directory: /opt/app
