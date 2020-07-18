@@ -23,7 +23,7 @@ jobs:
       - python/load-cache
       - python/install-deps
       - run:
-        command: pip install pylint
+          command: pip install pylint
       - python/save-cache
       - python-test
 
