@@ -6,8 +6,10 @@ orbs:
 commands:
   python-test:
     steps:
-      - run: pip install pylint
-      - run: pylint -d=R,W,C jobs/
+      - run: 
+        commands: |
+          pip install pylint
+          pylint -d=R,W,C jobs/
           
 #             
 #             python -m jobs.jobs.restore_prod_dumps
