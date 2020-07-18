@@ -43,7 +43,7 @@ jobs:
 workflows:
   build-test:
     jobs:
-      - build-and-test
+      - build-test
 #       - deploy-job:
 #         requires:
 #           - build-and-test # Only deploy once the build job has completed
