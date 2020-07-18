@@ -13,14 +13,11 @@ jobs:
       - checkout
       - python/load-cache
       - python/install-deps
-      - python/save-cache
-      - run:
-          command: pip install pylint
-      - python/save-cache
       - run:
           command: sudo apt-get install pylint
+      - python/save-cache
       - run:
-          command: which pylint #pylint -d=R,W,C jobs/
+          command: pylint -d=R,W,C jobs/
 
 
 
