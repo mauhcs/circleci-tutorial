@@ -7,7 +7,7 @@ commands:
   python-test:
     steps:
       - run:
-        command: pip install pylint
+          command: pip install pylint
       - python/save-cache
       - run:
           command: | 
