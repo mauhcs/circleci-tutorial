@@ -7,8 +7,9 @@ commands:
   python-test:
     steps:
       - run: pip install pylint
+      - run: pylint -d=R,W,C jobs/
           
-#             pylint -d=R,W,C jobs/
+#             
 #             python -m jobs.jobs.restore_prod_dumps
 #           name: Python-Tests
       
@@ -22,8 +23,6 @@ jobs:
       - checkout
       - python/load-cache
       - python/install-deps
-      - run:
-          command: pip install pylint
       - python/save-cache
       - python-test
 
