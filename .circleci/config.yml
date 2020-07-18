@@ -22,7 +22,7 @@ jobs:
       - run:
           command: apt-get install pylint
       - run:
-        command: which pylint #pylint -d=R,W,C jobs/
+          command: which pylint #pylint -d=R,W,C jobs/
 
 
 
