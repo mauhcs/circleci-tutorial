@@ -40,7 +40,7 @@ workflows:
   build-test:
     jobs:
       - build-test
-      - deploy
+      - deploy:
           requires:
             - build-test # Only deploy once the build job has completed
           filters:
