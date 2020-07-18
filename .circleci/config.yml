@@ -2,20 +2,6 @@ version: 2.1
 
 orbs:
   python: circleci/python@0.2.1
-
-commands:
-  python-test:
-    steps:
-      - run:
-          command: pip install pylint
-      - python/save-cache
-      - run:
-          command: | 
-            pylint -d=R,W,C jobs/
-          
-#             
-#             python -m jobs.jobs.restore_prod_dumps
-#           name: Python-Tests
       
 
 
@@ -31,7 +17,7 @@ jobs:
       - run:
           command: pip install pylint
       - run:
-          command: pylint -d=R,W,C jobs/
+          command: ls /home/circleci/.local/lib #pylint -d=R,W,C jobs/
 
 #   deploy-job:
 #     working_directory: /opt/app
