@@ -1,0 +1,48 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@0.2.1
+      
+
+
+jobs:
+  build-test:
+    working_directory: ~/app
+    executor: python/default
+    steps:
+      - checkout
+      - python/load-cache
+      - python/install-deps
+      - run:
+          command: sudo apt-get install pylint
+      - python/save-cache
+      - run:
+          command: pylint -d=R,W,C jobs/
+
+
+  deploy:
+    working_directory: ~/app
+    executor: python/default    
+    steps:    
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true      
+      - python/load-cache
+      - python/install-deps
+      # build and push Docker image
+      - run: |
+          TAG=0.1.$CIRCLE_BUILD_NUM
+          docker build -t CircleCI-Public/circleci-demo-docker:$TAG .
+# echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+# docker push CircleCI-Public/circleci-demo-docker:$TAG
+
+workflows:
+  build-test:
+    jobs:
+      - build-test
+      - deploy:
+          requires:
+            - build-test # Only deploy once the build job has completed
+          filters:
+            branches:
+              only: master # Only deploy on the master branch        
