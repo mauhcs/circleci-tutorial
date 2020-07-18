@@ -7,9 +7,9 @@ commands:
   python-test:
     steps:
       - run: 
-        command: |
-          pip install pylint
-          pylint -d=R,W,C jobs/
+          command: |
+            pip install pylint
+            pylint -d=R,W,C jobs/
           
 #             
 #             python -m jobs.jobs.restore_prod_dumps
