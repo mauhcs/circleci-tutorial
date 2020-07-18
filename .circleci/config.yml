@@ -28,7 +28,10 @@ jobs:
       - python/load-cache
       - python/install-deps
       - python/save-cache
-      - python-test
+      - run:
+          command: pip install pylint
+      - run:
+          command: pylint -d=R,W,C jobs/
 
 #   deploy-job:
 #     working_directory: /opt/app
