@@ -17,7 +17,7 @@ jobs:
       - run:
           command: pip install pylint
       - run:
-          command: ls /home/circleci/.local/lib #pylint -d=R,W,C jobs/
+          command: ls /home/circleci/.local/lib/python3.8 #pylint -d=R,W,C jobs/
 
 #   deploy-job:
 #     working_directory: /opt/app
