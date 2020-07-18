@@ -7,8 +7,8 @@ commands:
 
   opt-permission:
     steps:
-       - run: mkdir -p /opt/app
-       - run: chown -R $USER:$USER /opt/app
+       - run: sudo mkdir -p /opt/app
+       - run: sudo chown -R $USER:$USER /opt/app
 
   python-test:
     steps:
