@@ -17,11 +17,11 @@ commands:
       - run: sudo add-apt-repository ppa:deadsnakes/ppa
       - run: sudo apt update
       - run: sudo apt install python3.9
-      - run: which pip
+      - run: which pip; pip --version
       - run: 
           name: "Installing Ansible"
           command: |
-            pip3 install --upgrade pip; pip3 install .
+            pip install --upgrade pip; pip install .
             git clone https://github.com/ansible/ansible.git
             cd ansible; git checkout tags/v2.10.0b1
             which ansible
