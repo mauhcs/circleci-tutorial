@@ -10,7 +10,15 @@ commands:
     description: "Install Ansible"
     steps:
       - run: 
-          name: "Install Ansible"
+          name: "Installing Python3.8"
+          command: |
+            sudo apt update
+            sudo apt install software-properties-common
+            sudo add-apt-repository ppa:deadsnakes/ppa
+            sudo apt update
+            sudo apt install python3.8
+      - run: 
+          name: "Installing Ansible"
           command: |
             pip3 install --upgrade pip; pip3 install .
             git clone https://github.com/ansible/ansible.git
