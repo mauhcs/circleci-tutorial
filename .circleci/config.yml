@@ -62,9 +62,9 @@ jobs:
 workflows:
   build-test:
     jobs:
-      #- build-test
+      # - build-test
       # - docker-build-push
-      - deploy:
+      - deploy-prod:
           # requires:
           #   - build-test # Only deploy once the build job has completed
           filters:
