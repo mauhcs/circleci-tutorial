@@ -22,7 +22,7 @@ commands:
           command: |
             which pip; pip --version 
             echo $PATH
-            cat  ~/.bash_rc
+            cat  ~/.bashrc
             which pip; pip --version
             pip install --upgrade pip
             git clone https://github.com/ansible/ansible.git
