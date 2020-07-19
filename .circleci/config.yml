@@ -12,18 +12,14 @@ commands:
 
   deploy-to-vm:
     steps:
-      - run: 
-        name: Check if DEPLOYENV (PROD, DEV or TEST) is not empty
-        command: |
-            if [ -z "$DEPLOYENV" ]  
-            then
-              exit 1
-            fi
-      - run: 
-        name: Ansible-playbook
-        command: |
-            echo "$DEPLOYENV ansible_python_interpreter=/usr/bin/python3" >> inventory/target
-            ansible-playbook -i inventory/target  playbooks/up.yml
+      - run: |
+          if [ -z "$DEPLOYENV" ]  
+          then
+            exit 1
+          fi
+      - run: |
+          echo "$DEPLOYENV ansible_python_interpreter=/usr/bin/python3" >> inventory/target
+          ansible-playbook -i inventory/target  playbooks/up.yml
 
 jobs:
   pylint-test:
