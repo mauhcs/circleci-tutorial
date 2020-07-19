@@ -25,6 +25,9 @@ jobs:
     steps:    
       - checkout
       # build and push Docker image
+      - run: |
+          echo $GCLOUD_SERVICE_KEY > /tmp/gcloud-service-key.json
+          cat /tmp/gcloud-service-key.json
       - gcp-gcr/build-image:
           image: superpython
           registry-url: asia.gcr.io
