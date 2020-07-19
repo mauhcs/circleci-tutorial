@@ -44,21 +44,18 @@ jobs:
       - ANSIBLE_HOST_KEY_CHECKING: False
     steps:
       - checkout
+      - run: echo Ansible Location: `which ansible`
       - run:
           command: |
             pip install ansible==2.9
           name: Install Ansible
-
-          #command: bash .circleci/python_plus_ansible.sh
-          #name: "Install Python and Ansible"
-      # build and push Docker image
+      - run: echo Ansible Location: `which ansible`
       # Deploy to VM
       - run: 
           name: Ansible-playbook
           command: |
-            echo "$HOST_PROD ansible_python_interpreter=/usr/bin/python3" >> inventory/prod
-            source ~/.bashrc
-            ansible-playbook -i inventory/prod  playbooks/up.yml
+            echo "$HOST_PROD ansible_python_interpreter=/usr/bin/python3" >> inventory/target
+            ansible-playbook -i inventory/target  playbooks/up.yml
 
 workflows:
   build-test:
