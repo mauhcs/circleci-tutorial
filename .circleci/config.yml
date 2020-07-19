@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   python: circleci/python@0.2.1
+  gcp-gcr: circleci/gcp-gcr@0.7.1
       
 
 
@@ -22,7 +23,7 @@ jobs:
 
   deploy:
     working_directory: ~/app
-    executor: python/default    
+    executor: gcp-gcr/default    
     steps:    
       - checkout
       - setup_remote_docker:
@@ -33,6 +34,15 @@ jobs:
       - run: |
           TAG=0.1.$CIRCLE_BUILD_NUM
           docker build -t superpython .
+      - gcp-gcr/push-image:
+          digest-path: /tmp/digest.txt
+          image: superpython
+          registry-url: asia.gcr.io
+        - run:
+            command: |
+              echo "Digest is: $(</tmp/digest.txt)"
+
+          
       - run: |
           scp -o StrictHostKeyChecking=no -r ../app mau@34.85.75.223:~/app
 
