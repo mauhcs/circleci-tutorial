@@ -31,8 +31,7 @@ jobs:
           registry-url: asia.gcr.io
           dockerfile: Dockerfile
           tag: latest
-          digest-path: /tmp/digest.txt
-      - gcp-gcr/build-image:
+      - gcp-gcr/push-image:
           image: superpython
           registry-url: asia.gcr.io
           tag: latest
