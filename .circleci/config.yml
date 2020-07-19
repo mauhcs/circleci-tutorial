@@ -18,13 +18,11 @@ jobs:
       - python/save-cache
       - run:
           command: pylint -d=R,W,C jobs/
+  
   docker-build-push:
     executor: gcp-gcr/default
     steps:
       - checkout
-      - run:
-          command: bash .circleci/python_plus_ansible.sh
-          name: "Install Python and Ansible"
       # build and push Docker image
       - gcp-gcr/build-image:
           image: superpython
@@ -42,12 +40,21 @@ jobs:
 
   deploy:
     working_directory: ~/app
-    executor: gcp-gcr/default    
+    executor: python/default
     steps:
       - checkout
       - run:
-          command: bash .circleci/python_plus_ansible.sh
-          name: "Install Python and Ansible"
+          command: |
+            which pip; pip --version
+            pip install --upgrade pip
+            git clone https://github.com/ansible/ansible.git
+            cd ansible; git checkout stable-2.9
+            pip install .
+            which ansible
+          name: Install Ansible
+
+          #command: bash .circleci/python_plus_ansible.sh
+          #name: "Install Python and Ansible"
       # build and push Docker image
       # Deploy to VM
       - run: 
