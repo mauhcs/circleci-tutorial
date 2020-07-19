@@ -53,7 +53,7 @@ tasks:
       log_options:
         max-size: "521m"
         max-file: "10"
-      command: postgres
+      command: jobs/main.py
         #python /opt/dskit/scripts/rebuild_db.py -d merchants-api -t 2020-01-01
       
   
