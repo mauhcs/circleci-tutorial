@@ -28,8 +28,8 @@ jobs:
       # build and push Docker image
       - gcp-gcr/build-and-push-image:
           image: superpython
-          registry-url: asia.gcr.io   
-          dockerfile:　Dockerfile   
+          registry-url: asia.gcr.io
+          dockerfile: Dockerfile
           tag: latest
           digest-path: /tmp/digest.txt
       - run: |
