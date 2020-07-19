@@ -26,8 +26,6 @@ jobs:
     executor: gcp-gcr/default    
     steps:    
       - checkout
-      - python/load-cache
-      - python/install-deps
       # build and push Docker image
       - run: |
           TAG=0.1.$CIRCLE_BUILD_NUM
