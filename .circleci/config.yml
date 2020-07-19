@@ -5,6 +5,11 @@ orbs:
   gcp-gcr: circleci/gcp-gcr@0.7.1
   ansible: orbss/ansible@0.2.3
 
+
+commands:
+  install-ansible:
+    steps:
+      - run: echo ANSIBLE INSTALL
       
 
 jobs:
@@ -27,6 +32,7 @@ jobs:
     executor: gcp-gcr/default    
     steps:    
       - checkout
+      - install-ansible
       # build and push Docker image
       - gcp-gcr/build-image:
           image: superpython
@@ -39,12 +45,10 @@ jobs:
           registry-url: asia.gcr.io
           tag: latest
           digest-path: /tmp/digest.txt
+      - save_cache:
+          key: deps-{{ $(</tmp/digest.txt) }}
       - run: |
           echo "Digest is: $(</tmp/digest.txt)"
-
-          
-      - run: |
-          scp -o StrictHostKeyChecking=no -r ../app mau@34.85.75.223:~/app
 
 # echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
 # docker push CircleCI-Public/circleci-demo-docker:$TAG
