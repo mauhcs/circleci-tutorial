@@ -9,7 +9,9 @@ commands:
   install-ansible:
     description: "Install Ansible"
     steps:
-      - run: |
+      - run: 
+        name: "Install Ansible"
+        command: |
           pip3 install --upgrade pip; pip3 install .
           git clone https://github.com/ansible/ansible.git
           cd ansible; git checkout tags/v2.10.0b1
