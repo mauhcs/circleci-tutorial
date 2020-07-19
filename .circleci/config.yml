@@ -16,9 +16,9 @@ commands:
 
           if [ -z "$CIRCLE_TAG" ]
           then 
-            ver=`git describe --abbrev=0`;export DOCKER_TAG=TEST:$ver.$CIRCLE_BUILD_NUM
+            ver=`git describe --abbrev=0`;echo "export DOCKER_TAG=TEST:$ver.$CIRCLE_BUILD_NUM" >> $BASH_ENV
           else
-            ver=`git describe --abbrev=0`;export DOCKER_TAG=$ver.$CIRCLE_BUILD_NUM
+            ver=`git describe --abbrev=0`;echo "export DOCKER_TAG=$ver.$CIRCLE_BUILD_NUM" >> $BASH_ENV
           fi
           echo DOCKER_TAG = $DOCKER_TAG
 
