@@ -67,9 +67,9 @@ jobs:
       - run: |
           echo "Digest is: $(</tmp/digest.txt)"
       - run: |
-          echo "`$TENTEN-PROD` ansible_python_interpreter=/usr/bin/python3" > inventory/prod
-          echo inventory/prod
-          ansible-playbook -i prod_inventory  playbooks/up.yml
+          echo "`$HOST_PROD` ansible_python_interpreter=/usr/bin/python3" > inventory/prod
+          cat inventory/prod
+          ansible-playbook -i inventory/prod  playbooks/up.yml
 
 # echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
 # docker push CircleCI-Public/circleci-demo-docker:$TAG
