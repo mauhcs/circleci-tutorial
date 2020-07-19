@@ -10,7 +10,7 @@ commands:
       - run: |
           git clone https://github.com/ansible/ansible.git
           cd ansible; git checkout tags/v2.10.0b1
-          pip install --upgrade pip; pip install .
+          pip3 install --upgrade pip; pip3 install .
           which ansible
 
 
