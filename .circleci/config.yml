@@ -61,13 +61,14 @@ jobs:
 
   deploy-prod:
     executor: python/default
+    environment:    
       - DEPLOYENV: $HOST_PROD
     steps:
       - checkout
       - install-ansible
       - deploy-to-vm
 
-  deploy-TEST:
+  deploy-test:
     executor: python/default
     environment:
       - DEPLOYENV: $HOST_TEST
