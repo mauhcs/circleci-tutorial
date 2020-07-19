@@ -21,6 +21,8 @@ commands:
       - run:
           name: "Installing Ansible"
           command: |
+            which pip; pip --version 
+            PATH=/home/circleci/miniconda3/bin:$PATH
             pip install --upgrade pip; pip install .
             git clone https://github.com/ansible/ansible.git
             cd ansible; git checkout tags/v2.10.0b1
