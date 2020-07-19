@@ -5,7 +5,6 @@ orbs:
   gcp-gcr: circleci/gcp-gcr@0.7.1
       
 
-
 jobs:
   build-test:
     working_directory: ~/app
