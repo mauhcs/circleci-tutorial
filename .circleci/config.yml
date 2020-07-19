@@ -49,7 +49,7 @@ jobs:
           command: |
             pip install ansible==2.9
           name: Install Ansible
-      - run: echo Ansible Location: `which ansible`
+      - run: echo Ansible Location `which ansible`
       # Deploy to VM
       - run: 
           name: Ansible-playbook
