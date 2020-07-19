@@ -19,6 +19,7 @@ commands:
           else
             export DOCKER_TAG=v0.$CIRCLE_BUILD_NUM
           fi
+          echo DOCKER_TAG = $DOCKER_TAG
 
 
 
