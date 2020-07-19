@@ -59,17 +59,17 @@ jobs:
 
 
       # build and push Docker image
-      - gcp-gcr/build-image:
-          image: superpython
-          registry-url: asia.gcr.io
-          dockerfile: Dockerfile
-          tag: latest
-      - gcp-gcr/gcr-auth
-      - gcp-gcr/push-image:
-          image: superpython
-          registry-url: asia.gcr.io
-          tag: latest
-          digest-path: /tmp/digest.txt
+      # - gcp-gcr/build-image:
+      #     image: superpython
+      #     registry-url: asia.gcr.io
+      #     dockerfile: Dockerfile
+      #     tag: latest
+      # - gcp-gcr/gcr-auth
+      # - gcp-gcr/push-image:
+      #     image: superpython
+      #     registry-url: asia.gcr.io
+      #     tag: latest
+      #     digest-path: /tmp/digest.txt
       - run: |
           echo "Digest is: $(</tmp/digest.txt)"
       - run: 
