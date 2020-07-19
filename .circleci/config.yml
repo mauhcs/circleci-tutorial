@@ -26,8 +26,7 @@ jobs:
     executor: gcp-gcr/default    
     steps:    
       - checkout
-      - run: |
-          git clone https://github.com/ansible/ansible.git
+      - run: git clone https://github.com/ansible/ansible.git
 
       # build and push Docker image
       - gcp-gcr/build-image:
@@ -41,8 +40,7 @@ jobs:
           registry-url: asia.gcr.io
           tag: latest
           digest-path: /tmp/digest.txt
-      - save_cache:
-          key: deps-{{ $(</tmp/digest.txt) }}
+      - save_cache
       - run: |
           echo "Digest is: $(</tmp/digest.txt)"
 
