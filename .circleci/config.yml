@@ -58,6 +58,10 @@ jobs:
           name: "Install Python and Ansible"
       - save_cache:
           key : {{ checksum ".circleci/pre_build.sh" }}
+          paths: 
+            - ~/miniconda
+            - ~/.bashrc
+
 
       # build and push Docker image
       - gcp-gcr/build-image:
