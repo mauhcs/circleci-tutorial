@@ -76,11 +76,11 @@ jobs:
 workflows:
   build-test:
     jobs:
-      - build-test
+      - pylint-test
       - docker-build-push
       - deploy-prod:
           requires:
-            - build-test
+            - pylint-test
             - docker-build-push # Only deploy once the build job has completed
           filters:
             branches:
