@@ -80,6 +80,7 @@ jobs:
           echo RUNNING ANSIBLE-PLAYBOOK
           which ansible
           ansible --version
+          ansible-playbook --version
           ansible-playbook -i inventory/prod  playbooks/up.yml
 
 # echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
