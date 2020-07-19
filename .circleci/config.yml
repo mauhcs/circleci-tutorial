@@ -39,18 +39,14 @@ jobs:
           echo "Digest is: $(</tmp/digest.txt)"
 
   deploy:
-    working_directory: ~/app
     executor: python/default
+    environment:
+      - ANSIBLE_HOST_KEY_CHECKING: False
     steps:
       - checkout
       - run:
           command: |
-            which pip; pip --version
-            pip install --upgrade pip
-            git clone https://github.com/ansible/ansible.git
-            cd ansible; git checkout stable-2.9
-            pip install .
-            which ansible
+            pip install ansible==2.9
           name: Install Ansible
 
           #command: bash .circleci/python_plus_ansible.sh
