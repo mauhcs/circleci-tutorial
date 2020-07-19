@@ -8,7 +8,8 @@ orbs:
 commands:
   install-ansible:
     steps:
-      - run: echo ANSIBLE INSTALL
+      - run: 
+          command: echo ANSIBLE INSTALL
       
 
 jobs:
