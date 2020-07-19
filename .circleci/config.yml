@@ -79,8 +79,8 @@ workflows:
       # - build-test
       # - docker-build-push
       - deploy-prod:
-          # requires:
-          #   - build-test # Only deploy once the build job has completed
+          requires:
+            - docker-build-push # Only deploy once the build job has completed
           filters:
             branches:
-              only: master # Only deploy on the master branch        
+              only: master # Only deploy on the master branch

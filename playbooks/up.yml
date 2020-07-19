@@ -36,7 +36,7 @@
           POSTGRES_PASSWORD: mau
           PGDATA: "{{ APPDIR }}/data"
         volumes:
-          - "{{ APPDIR }}/:{{ APPDIR }}/"
+          #- "{{ APPDIR }}/:{{ APPDIR }}/"
           - /tmp/:/tmp/
           - /home/mau/credentials:/root/credentials
         published_ports:
