@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   python: circleci/python@0.2.1
-  gcp-gcr: circleci/gcp-gcr@x.y.z
+  gcp-gcr: circleci/gcp-gcr@0.7.1
       
 
 jobs:
@@ -26,10 +26,15 @@ jobs:
     steps:    
       - checkout
       # build and push Docker image
-      - gcp-gcr/build-and-push-image:
+      - gcp-gcr/build-image:
           image: superpython
           registry-url: asia.gcr.io
           dockerfile: Dockerfile
+          tag: latest
+          digest-path: /tmp/digest.txt
+      - gcp-gcr/build-image:
+          image: superpython
+          registry-url: asia.gcr.io
           tag: latest
           digest-path: /tmp/digest.txt
       - run: |
