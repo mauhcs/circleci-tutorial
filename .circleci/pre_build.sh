@@ -9,6 +9,6 @@ source ~/.bashrc
 which pip; pip --version
 pip install --upgrade pip
 git clone https://github.com/ansible/ansible.git
-cd ansible; git checkout tags/v2.9
+cd ansible; git checkout stable-2.9
 pip install .
 which ansible
