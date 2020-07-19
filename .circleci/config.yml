@@ -23,9 +23,11 @@ commands:
           command: |
             which pip; pip --version 
             PATH=/home/circleci/miniconda3/bin:$PATH
-            pip install --upgrade pip; pip install .
+            which pip; pip --version
+            pip install --upgrade pip
             git clone https://github.com/ansible/ansible.git
             cd ansible; git checkout tags/v2.10.0b1
+            pip install .
             which ansible
 
 
