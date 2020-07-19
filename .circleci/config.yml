@@ -57,7 +57,7 @@ jobs:
   deploy-prod:
     executor: python/default
     environment:    
-      - DEPLOYENV: ${HOST_PROD}
+      - DEPLOYENV: $HOST_PROD
       - ANSIBLE_HOST_KEY_CHECKING: False
     steps:
       - checkout
