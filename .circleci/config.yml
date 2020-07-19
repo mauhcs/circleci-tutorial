@@ -61,7 +61,7 @@ workflows:
   build-test:
     jobs:
       #- build-test
-      - docker-build-push
+      # - docker-build-push
       - deploy:
           # requires:
           #   - build-test # Only deploy once the build job has completed
