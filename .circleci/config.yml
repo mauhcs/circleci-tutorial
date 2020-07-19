@@ -21,9 +21,8 @@ commands:
       - run:
           name: "Installing Ansible"
           command: |
-            which pip; pip --version 
-            echo $PATH
-            cat  ~/.bashrc
+            which pip; pip --version
+            export PATH="$HOME/miniconda/bin:$PATH"
             which pip; pip --version
             pip install --upgrade pip
             git clone https://github.com/ansible/ansible.git
@@ -68,7 +67,7 @@ jobs:
       - run: |
           echo "Digest is: $(</tmp/digest.txt)"
       - run: |
-          echo "`$HOST_PROD` ansible_python_interpreter=/usr/bin/python3" > inventory/prod
+          echo "$HOST_PROD ansible_python_interpreter=/usr/bin/python3" > inventory/prod
           cat inventory/prod
           ansible-playbook -i inventory/prod  playbooks/up.yml
 
