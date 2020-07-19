@@ -14,6 +14,7 @@ commands:
     steps:
       - run: 
         name: Check if DEPLOYENV (PROD, DEV or TEST) is not empty
+        command: |
           if [ -z "$DEPLOYENV" ]  
           then
             exit 1
