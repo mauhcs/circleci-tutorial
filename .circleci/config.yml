@@ -41,8 +41,8 @@ jobs:
     steps:
       - checkout
       # build and push Docker image
-      - set-image-tag
-      - run: echo DOCKER_TAG = $DOCKER_TAG
+      #- set-image-tag
+      - run: DOCKER_TAG=`git describe --abbrev=0`
       - gcp-gcr/build-image:
           image: superpython
           registry-url: asia.gcr.io
