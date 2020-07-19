@@ -3,7 +3,6 @@ version: 2.1
 orbs:
   python: circleci/python@0.2.1
   gcp-gcr: circleci/gcp-gcr@0.7.1
-  ansible: orbss/ansible@0.2.3
 
 
 commands:
