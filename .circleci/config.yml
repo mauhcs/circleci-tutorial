@@ -10,16 +10,14 @@ commands:
     description: "Install Ansible"
     steps:
       - run: 
-          name: "Installing Python3.8"
+          name: "Installing Python3"
           command: |
             sudo apt update
-      - run: sudo apt install software-properties-common
-      - run: sudo add-apt-repository ppa:deadsnakes/ppa
-      - run: sudo apt update
-      - run: wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
-      - run: bash ~/miniconda.sh -b -p $HOME/miniconda
-      - run: which pip; pip --version
-      - run: 
+            wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
+            bash ~/miniconda.sh -b -p $HOME/miniconda
+            PATH=/home/circleci/miniconda3/bin:$PATH
+            echo PATH=/home/circleci/miniconda3/bin:$PATH >> ~/.bash_rc
+            which pip; pip --version 
           name: "Installing Ansible"
           command: |
             pip install --upgrade pip; pip install .
