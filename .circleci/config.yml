@@ -13,7 +13,7 @@ commands:
   set-image-tag:
     steps:
       - run: |
-          if [-z "$CIRCLE_TAG"]
+          if [ -z "$CIRCLE_TAG" ]
           then 
             export DOCKER_TAG=TEST:v0.$CIRCLE_BUILD_NUM
           else
