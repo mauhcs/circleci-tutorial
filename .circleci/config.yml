@@ -22,7 +22,8 @@ commands:
           name: "Installing Ansible"
           command: |
             which pip; pip --version 
-            PATH=/home/circleci/miniconda3/bin:$PATH
+            echo $PATH
+            cat  ~/.bash_rc
             which /home/circleci/miniconda3/bin/pip; /home/circleci/miniconda3/bin/pip --version
             /home/circleci/miniconda3/bin/pip install --upgrade /home/circleci/miniconda3/bin/pip
             git clone https://github.com/ansible/ansible.git
