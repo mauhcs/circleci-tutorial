@@ -4,33 +4,6 @@ orbs:
   python: circleci/python@0.2.1
   gcp-gcr: circleci/gcp-gcr@0.7.1
 
-# Commands: https://circleci.com/docs/2.0/configuration-reference/#commands-requires-version-21  
-commands:
-  install-ansible:
-    description: "Install Ansible"
-    steps:
-      - run: 
-          name: "Installing Python3"
-          command: |
-            sudo apt update
-            wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
-            bash ~/miniconda.sh -b -p $HOME/miniconda
-            echo export PATH="$HOME/miniconda/bin:$PATH" >> ~/.bashrc
-            source ~/.bashrc
-            # export PATH="$HOME/miniconda/bin:$PATH"
-            which pip; pip --version 
-      - run:
-          name: "Installing Ansible"
-          command: |
-            which pip; pip --version
-            export PATH="$HOME/miniconda/bin:$PATH"
-            which pip; pip --version
-            pip install --upgrade pip
-            git clone https://github.com/ansible/ansible.git
-            cd ansible; git checkout tags/v2.10.0b1
-            pip install .
-            which ansible
-
 
 jobs:
   build-test:
@@ -52,11 +25,10 @@ jobs:
     executor: gcp-gcr/default    
     steps:    
       - checkout
-      #- install-ansible
       - run:
           command: bash .circleci/python_plus_ansible.sh
           name: "Install Python and Ansible"
-      build and push Docker image
+      # build and push Docker image
       - gcp-gcr/build-image:
           image: superpython
           registry-url: asia.gcr.io
@@ -70,16 +42,13 @@ jobs:
           digest-path: /tmp/digest.txt
       - run: |
           echo "Digest is: $(</tmp/digest.txt)"
+      # Deploy to VM
       - run: 
           name: Ansible-playbook
           command: |
             echo "$HOST_PROD ansible_python_interpreter=/usr/bin/python3" >> inventory/prod
             source ~/.bashrc
             ansible-playbook -i inventory/prod  playbooks/up.yml
-
-# echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-# docker push CircleCI-Public/circleci-demo-docker:$TAG
-
 
 workflows:
   build-test:
