@@ -47,12 +47,12 @@ jobs:
           image: superpython
           registry-url: asia.gcr.io
           dockerfile: Dockerfile
-          tag: $DOCKER_TAG
+          tag: $DOCKER_TAG.$CIRCLE_BUILD_NUM
       - gcp-gcr/gcr-auth
       - gcp-gcr/push-image:
           image: superpython
           registry-url: asia.gcr.io
-          tag: $DOCKER_TAG
+          tag: $DOCKER_TAG.$CIRCLE_BUILD_NUM
           digest-path: /tmp/digest.txt
       - run: |
           echo "Digest is: $(</tmp/digest.txt)"
