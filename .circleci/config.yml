@@ -5,6 +5,11 @@ orbs:
   gcp-gcr: circleci/gcp-gcr@0.7.1
 
 
+commands: 
+  install-ansible:
+    steps:
+      - run: pip install ansible==2.9
+
 jobs:
   build-test:
     working_directory: ~/app
@@ -44,12 +49,7 @@ jobs:
       - ANSIBLE_HOST_KEY_CHECKING: False
     steps:
       - checkout
-      - run: echo Ansible Location `which ansible`
-      - run:
-          command: |
-            pip install ansible==2.9
-          name: Install Ansible
-      - run: echo Ansible Location `which ansible`
+      - install-ansible
       # Deploy to VM
       - run: 
           name: Ansible-playbook
