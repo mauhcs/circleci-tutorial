@@ -76,6 +76,10 @@ jobs:
           echo "$HOST_PROD ansible_python_interpreter=/usr/bin/python3" >> inventory/prod
           cat inventory/prod
           source ~/.bashrc
+
+          echo RUNNING ANSIBLE-PLAYBOOK
+          which ansible
+          ansible --version
           ansible-playbook -i inventory/prod  playbooks/up.yml
 
 # echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin

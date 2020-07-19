@@ -35,9 +35,9 @@
         restart: yes
         env: 
           POSTGRES_PASSWORD: mau
-          PGDATA: "{{ DATADIR }}/data"
+          PGDATA: "{{ APPDIR }}/data"
         volumes:
-          - "{{ DSDIR }}/:{{ DSDIR }}/"
+          - "{{ APPDIR }}/:{{ APPDIR }}/"
           - /tmp/:/tmp/
           - /home/mau/credentials:/root/credentials
         published_ports:
