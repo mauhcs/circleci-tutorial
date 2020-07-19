@@ -54,22 +54,20 @@ jobs:
       - checkout
       #- install-ansible
       - run:
-          command: bash .circleci/pre_build.sh
+          command: bash .circleci/python_plus_ansible.sh
           name: "Install Python and Ansible"
-
-
-      # build and push Docker image
-      # - gcp-gcr/build-image:
-      #     image: superpython
-      #     registry-url: asia.gcr.io
-      #     dockerfile: Dockerfile
-      #     tag: latest
-      # - gcp-gcr/gcr-auth
-      # - gcp-gcr/push-image:
-      #     image: superpython
-      #     registry-url: asia.gcr.io
-      #     tag: latest
-      #     digest-path: /tmp/digest.txt
+      build and push Docker image
+      - gcp-gcr/build-image:
+          image: superpython
+          registry-url: asia.gcr.io
+          dockerfile: Dockerfile
+          tag: latest
+      - gcp-gcr/gcr-auth
+      - gcp-gcr/push-image:
+          image: superpython
+          registry-url: asia.gcr.io
+          tag: latest
+          digest-path: /tmp/digest.txt
       - run: |
           echo "Digest is: $(</tmp/digest.txt)"
       - run: 
@@ -77,11 +75,6 @@ jobs:
           command: |
             echo "$HOST_PROD ansible_python_interpreter=/usr/bin/python3" >> inventory/prod
             source ~/.bashrc
-
-            echo RUNNING ANSIBLE-PLAYBOOK
-            which ansible
-            ansible --version
-            ansible-playbook --version
             ansible-playbook -i inventory/prod  playbooks/up.yml
 
 # echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
