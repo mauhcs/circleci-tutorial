@@ -10,7 +10,7 @@ commands:
       - run: |
           git clone https://github.com/ansible/ansible.git
           cd ansible; git checkout tags/v2.10.0b1
-          pip install .
+          pip install --upgrade pip; pip install .
           which ansible
 
 
@@ -35,10 +35,6 @@ jobs:
     steps:    
       - checkout
       - install-ansible
-      - run: |
-          git clone https://github.com/ansible/ansible.git
-          cd ansible; git checkout tags/v2.10.0b1
-
       # build and push Docker image
       - gcp-gcr/build-image:
           image: superpython
