@@ -10,6 +10,18 @@ commands:
     steps:
       - run: pip install ansible==2.9
 
+  set-image-tag:
+    steps:
+      - run: |
+        if [-z "$CIRCLE_TAG"]
+        then 
+          export DOCKER_TAG=TEST:v0.$CIRCLE_BUILD_NUM
+        else
+          export DOCKER_TAG=v0.$CIRCLE_BUILD_NUM
+        fi
+
+
+
 jobs:
   pylint-test:
     working_directory: ~/app
@@ -27,11 +39,12 @@ jobs:
     steps:
       - checkout
       # build and push Docker image
+      - set-image-tag
       - gcp-gcr/build-image:
           image: superpython
           registry-url: asia.gcr.io
           dockerfile: Dockerfile
-          tag: latest
+          tag: $DOCKER_TAG
       - gcp-gcr/gcr-auth
       - gcp-gcr/push-image:
           image: superpython
@@ -70,6 +83,7 @@ jobs:
           command: |
               echo "$HOST_TEST ansible_python_interpreter=/usr/bin/python3" >> inventory/target
               ansible-playbook -i inventory/target  playbooks/up.yml    
+
 
 workflows:
   build-test:
