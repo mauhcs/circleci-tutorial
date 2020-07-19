@@ -1,59 +1,52 @@
 
 
 - hosts: dsnet
-remote_user: mau
-become: yes
-become_method: sudo
-gather_facts: yes
-vars:
-  DSDIR: "/opt/dskit"
-  DATADIR: "/opt/postgres"
-  VMIP: ansible_host
-  service_account_file: /home/mau/credentials/data-science-273411-066f734ce5bb.json
-  project: data-science-273411  
-tasks:
+  remote_user: mau
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  vars:
+    APPDIR: "/opt/app"
+    VMIP: ansible_host
+    service_account_file: /home/mau/credentials/data-science-273411-066f734ce5bb.json
+    project: data-science-273411  
+  tasks:
 
-  - debug: var=ansible_host
+    - debug: var=ansible_host
 
-  - file: # make /opt/postgres dir
-      path: "{{ DSDIR }}"
-      state: directory
-      mode: 0755
+    - file: # make /opt/app dir
+        path: "{{ APPDIR }}"
+        state: directory
+        mode: 0755   
 
-  - file: # make /opt/postgres dir
-      path: "{{ DATADIR }}"
-      state: directory
-      mode: 0755        
-
-  - name: gcloud auth activate-service-account
-    shell: "gcloud auth activate-service-account data-science-obl@{{ project }}.iam.gserviceaccount.com --key-file={{ service_account_file }}"
-    
-  - name: gcloud auth configure-docker
-    shell: gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia.gcr.io
-
-
-  - name: Create Docker Container
-    docker_container:
-      name: ds.postgres
-      image: "asia.gcr.io/{{ project }}/dbrestore:latest"
-      restart_policy: always
-      pull: yes
-      restart: yes
-      env: 
-        POSTGRES_PASSWORD: mau
-        PGDATA: "{{ DATADIR }}/data"
-      volumes:
-        - "{{ DSDIR }}/:{{ DSDIR }}/"
-        - /tmp/:/tmp/
-        - /home/mau/credentials:/root/credentials
-      published_ports:
-        - 0.0.0.0:5432:5432 # 127.0.0.1 limits to local host only
-      network_mode: "host" # otherwise docker in linux cannot find localhost
-      log_driver: "json-file"
-      log_options:
-        max-size: "521m"
-        max-file: "10"
-      command: jobs/main.py
-        #python /opt/dskit/scripts/rebuild_db.py -d merchants-api -t 2020-01-01
+    - name: gcloud auth activate-service-account
+      shell: "gcloud auth activate-service-account data-science-obl@{{ project }}.iam.gserviceaccount.com --key-file={{ service_account_file }}"
       
-  
+    - name: gcloud auth configure-docker
+      shell: gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia.gcr.io
+
+
+    - name: Create Docker Container
+      docker_container:
+        name: superpython
+        image: "asia.gcr.io/{{ project }}/superpython:latest"
+        restart_policy: always
+        pull: yes
+        restart: yes
+        env: 
+          POSTGRES_PASSWORD: mau
+          PGDATA: "{{ DATADIR }}/data"
+        volumes:
+          - "{{ DSDIR }}/:{{ DSDIR }}/"
+          - /tmp/:/tmp/
+          - /home/mau/credentials:/root/credentials
+        published_ports:
+          - 0.0.0.0:5432:5432 # 127.0.0.1 limits to local host only
+        network_mode: "host" # otherwise docker in linux cannot find localhost
+        log_driver: "json-file"
+        log_options:
+          max-size: "521m"
+          max-file: "10"
+        command: jobs/main.py
+        
+    
