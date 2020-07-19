@@ -18,12 +18,9 @@ jobs:
       - python/save-cache
       - run:
           command: pylint -d=R,W,C jobs/
- 
-
-  deploy:
-    working_directory: ~/app
-    executor: gcp-gcr/default    
-    steps:    
+  docker-build-push:
+    executor: gcp-gcr/default
+    steps:
       - checkout
       - run:
           command: bash .circleci/python_plus_ansible.sh
@@ -42,6 +39,16 @@ jobs:
           digest-path: /tmp/digest.txt
       - run: |
           echo "Digest is: $(</tmp/digest.txt)"
+
+  deploy:
+    working_directory: ~/app
+    executor: gcp-gcr/default    
+    steps:
+      - checkout
+      - run:
+          command: bash .circleci/python_plus_ansible.sh
+          name: "Install Python and Ansible"
+      # build and push Docker image
       # Deploy to VM
       - run: 
           name: Ansible-playbook
@@ -54,6 +61,7 @@ workflows:
   build-test:
     jobs:
       #- build-test
+      - docker-build-push
       - deploy:
           # requires:
           #   - build-test # Only deploy once the build job has completed
