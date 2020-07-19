@@ -46,4 +46,4 @@
         log_options:
           max-size: "521m"
           max-file: "10"
-        command: ls; python jobs/main.py
+        command: python jobs/main.py
