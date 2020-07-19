@@ -11,8 +11,6 @@ commands:
       - run: pip install ansible==2.9
 
   deploy-to-vm:
-    environment:
-      - ANSIBLE_HOST_KEY_CHECKING: False    
     steps:
       - run: 
         name: Check if DEPLOYENV (PROD, DEV or TEST) is not empty
@@ -63,6 +61,7 @@ jobs:
     executor: python/default
     environment:    
       - DEPLOYENV: $HOST_PROD
+      - ANSIBLE_HOST_KEY_CHECKING: False
     steps:
       - checkout
       - install-ansible
@@ -72,6 +71,7 @@ jobs:
     executor: python/default
     environment:
       - DEPLOYENV: $HOST_TEST
+      - ANSIBLE_HOST_KEY_CHECKING: False      
     steps:
       - checkout
       - install-ansible
