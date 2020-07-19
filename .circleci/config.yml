@@ -79,7 +79,7 @@ workflows:
   build-test:
     jobs:
       - pylint-test
-      - docker-build-push
+      - docker-build-push:
           requires:
             - pylint-test
           filters:
