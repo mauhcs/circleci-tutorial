@@ -38,9 +38,8 @@ jobs:
           digest-path: /tmp/digest.txt
           image: superpython
           registry-url: asia.gcr.io
-        - run:
-            command: |
-              echo "Digest is: $(</tmp/digest.txt)"
+      - run: |
+          echo "Digest is: $(</tmp/digest.txt)"
 
           
       - run: |
