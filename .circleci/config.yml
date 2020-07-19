@@ -51,7 +51,10 @@ jobs:
     executor: gcp-gcr/default    
     steps:    
       - checkout
-      - install-ansible
+      #- install-ansible
+      - run:
+          command: bash .circleci/pre_build.sh
+          name: "Install Python and Ansible"
       # build and push Docker image
       - gcp-gcr/build-image:
           image: superpython
@@ -67,7 +70,7 @@ jobs:
       - run: |
           echo "Digest is: $(</tmp/digest.txt)"
       - run: |
-          echo "$HOST_PROD ansible_python_interpreter=/usr/bin/python3" > inventory/prod
+          echo "$HOST_PROD ansible_python_interpreter=/usr/bin/python3" >> inventory/prod
           cat inventory/prod
           ansible-playbook -i inventory/prod  playbooks/up.yml
 
