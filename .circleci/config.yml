@@ -57,7 +57,7 @@ jobs:
           command: bash .circleci/pre_build.sh
           name: "Install Python and Ansible"
       - save_cache:
-          key : {{ checksum ".circleci/pre_build.sh" }}
+          key: {{ checksum ".circleci/pre_build.sh" }}
           paths: 
             - ~/miniconda
             - ~/.bashrc
