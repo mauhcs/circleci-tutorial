@@ -72,16 +72,17 @@ jobs:
           digest-path: /tmp/digest.txt
       - run: |
           echo "Digest is: $(</tmp/digest.txt)"
-      - run: |
-          echo "$HOST_PROD ansible_python_interpreter=/usr/bin/python3" >> inventory/prod
-          cat inventory/prod
-          source ~/.bashrc
+      - run: 
+          name: Ansible-playbook
+          command: |
+            echo "$HOST_PROD ansible_python_interpreter=/usr/bin/python3" >> inventory/prod
+            source ~/.bashrc
 
-          echo RUNNING ANSIBLE-PLAYBOOK
-          which ansible
-          ansible --version
-          ansible-playbook --version
-          ansible-playbook -i inventory/prod  playbooks/up.yml
+            echo RUNNING ANSIBLE-PLAYBOOK
+            which ansible
+            ansible --version
+            ansible-playbook --version
+            ansible-playbook -i inventory/prod  playbooks/up.yml
 
 # echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
 # docker push CircleCI-Public/circleci-demo-docker:$TAG

@@ -25,52 +25,6 @@
     - name: gcloud auth configure-docker
       shell: gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia.gcr.io
 
-      - name: Create Docker Container
-      docker_container:
-        name: superpython
-        image: "asia.gcr.io/{{ project }}/superpython:latest"
-        restart_policy: always
-        pull: yes
-        restart: yes
-        env: 
-          POSTGRES_PASSWORD: mau
-          PGDATA: "{{ APPDIR }}/data"
-        volumes:
-          - "{{ APPDIR }}/:{{ APPDIR }}/"
-          - /tmp/:/tmp/
-          - /home/mau/credentials:/root/credentials
-        published_ports:
-          - 0.0.0.0:5432:5432 # 127.0.0.1 limits to local host only
-        network_mode: "host" # otherwise docker in linux cannot find localhost
-        log_driver: "json-file"
-        log_options:
-          max-size: "521m"
-          max-file: "10"
-        command: jobs/main.py
-        
-        - name: Create Docker Container
-        docker_container:
-          name: superpython
-          image: "asia.gcr.io/{{ project }}/superpython:latest"
-          restart_policy: always
-          pull: yes
-          restart: yes
-          env: 
-            POSTGRES_PASSWORD: mau
-            PGDATA: "{{ APPDIR }}/data"
-          volumes:
-            - "{{ APPDIR }}/:{{ APPDIR }}/"
-            - /tmp/:/tmp/
-            - /home/mau/credentials:/root/credentials
-          published_ports:
-            - 0.0.0.0:5432:5432 # 127.0.0.1 limits to local host only
-          network_mode: "host" # otherwise docker in linux cannot find localhost
-          log_driver: "json-file"
-          log_options:
-            max-size: "521m"
-            max-file: "10"
-          command: jobs/main.py
-          
     - name: Create Docker Container
       docker_container:
         name: superpython
@@ -92,6 +46,4 @@
         log_options:
           max-size: "521m"
           max-file: "10"
-        command: jobs/main.py
-        
-      
+        command: python -c "import time; time.sleep(360)"
