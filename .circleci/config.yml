@@ -19,7 +19,9 @@ jobs:
       - python/load-cache
       - python/install-deps
       - run:
-          command: sudo apt-get install pylint
+          command: |
+              pip install pylint
+              pylint --version
       - python/save-cache
       - run:
           command: pylint -d=R,W,C jobs/
