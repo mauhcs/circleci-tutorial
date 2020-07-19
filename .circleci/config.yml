@@ -4,15 +4,16 @@ orbs:
   python: circleci/python@0.2.1
   gcp-gcr: circleci/gcp-gcr@0.7.1
 
+# Commands: https://circleci.com/docs/2.0/configuration-reference/#commands-requires-version-21  
 commands:
   install-ansible:
+    description: "Install Ansible"
     steps:
       - run: |
           pip3 install --upgrade pip; pip3 install .
           git clone https://github.com/ansible/ansible.git
           cd ansible; git checkout tags/v2.10.0b1
           which ansible
-        name: Install Ansible
 
 
 jobs:
