@@ -3,7 +3,8 @@ sudo apt update
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
 bash ~/miniconda.sh -b -p $HOME/miniconda
 echo export PATH="$HOME/miniconda/bin:$PATH" >> ~/.bashrc
-export PATH="$HOME/miniconda/bin:$PATH"
+source ~/.bashrc
+# export PATH="$HOME/miniconda/bin:$PATH"
 
 which pip; pip --version
 pip install --upgrade pip
