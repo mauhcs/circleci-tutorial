@@ -4,7 +4,15 @@ orbs:
   python: circleci/python@0.2.1
   gcp-gcr: circleci/gcp-gcr@0.7.1
 
-      
+commands:
+  install-ansible:
+    steps:
+      run: |
+          git clone https://github.com/ansible/ansible.git
+          cd ansible; git checkout tags/v2.10.0b1
+          pip install .
+          which ansible
+
 
 jobs:
   build-test:
@@ -26,6 +34,7 @@ jobs:
     executor: gcp-gcr/default    
     steps:    
       - checkout
+      - install-ansible
       - run: |
           git clone https://github.com/ansible/ansible.git
           cd ansible; git checkout tags/v2.10.0b1
