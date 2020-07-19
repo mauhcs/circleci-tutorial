@@ -15,7 +15,7 @@ commands:
             sudo apt update
             wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
             bash ~/miniconda.sh -b -p $HOME/miniconda
-            echo export PATH="/home/circleci/miniconda3/bin:$PATH" >> ~/.bashrc
+            echo export PATH="$HOME/miniconda/bin:$PATH" >> ~/.bashrc
             which pip; pip --version 
       - run:
           name: "Installing Ansible"
@@ -23,11 +23,11 @@ commands:
             which pip; pip --version 
             echo $PATH
             cat  ~/.bash_rc
-            which /home/circleci/miniconda3/bin/pip; /home/circleci/miniconda3/bin/pip --version
-            /home/circleci/miniconda3/bin/pip install --upgrade /home/circleci/miniconda3/bin/pip
+            which pip; pip --version
+            pip install --upgrade pip
             git clone https://github.com/ansible/ansible.git
             cd ansible; git checkout tags/v2.10.0b1
-            /home/circleci/miniconda3/bin/pip install .
+            pip install .
             which ansible
 
 
