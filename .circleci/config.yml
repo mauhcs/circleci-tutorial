@@ -8,10 +8,11 @@ commands:
   install-ansible:
     steps:
       - run: |
+          pip3 install --upgrade pip; pip3 install .
           git clone https://github.com/ansible/ansible.git
           cd ansible; git checkout tags/v2.10.0b1
-          pip3 install --upgrade pip; pip3 install .
           which ansible
+        name: Install Ansible
 
 
 jobs:
