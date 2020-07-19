@@ -56,8 +56,8 @@ workflows:
     jobs:
       #- build-test
       - deploy:
-          requires:
-            - build-test # Only deploy once the build job has completed
+          # requires:
+          #   - build-test # Only deploy once the build job has completed
           filters:
             branches:
               only: master # Only deploy on the master branch        
