@@ -18,7 +18,8 @@ commands:
             PATH=/home/circleci/miniconda3/bin:$PATH
             echo PATH=/home/circleci/miniconda3/bin:$PATH >> ~/.bash_rc
             which pip; pip --version 
-          name: "Installing Ansible"
+      - run:
+            name: "Installing Ansible"
           command: |
             pip install --upgrade pip; pip install .
             git clone https://github.com/ansible/ansible.git
