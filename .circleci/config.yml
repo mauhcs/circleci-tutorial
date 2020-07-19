@@ -31,6 +31,7 @@ jobs:
           registry-url: asia.gcr.io
           dockerfile: Dockerfile
           tag: latest
+      - gcp-gcr/gcr-auth
       - gcp-gcr/push-image:
           image: superpython
           registry-url: asia.gcr.io
