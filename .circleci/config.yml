@@ -8,11 +8,26 @@ orbs:
 commands: 
   install-ansible:
     steps:
-      - run: echo Test Env Var $TESTVAR
       - run: pip install ansible==2.9
 
+  deploy-to-vm:
+    environment:
+      - ANSIBLE_HOST_KEY_CHECKING: False    
+    steps:
+      - run: 
+        name: Check if DEPLOYENV (PROD, DEV or TEST) is not empty
+          if [ -z "$DEPLOYENV" ]  
+          then
+            exit 1
+          fi
+      - run: 
+        name: Ansible-playbook
+        command: |
+          echo "$DEPLOYENV ansible_python_interpreter=/usr/bin/python3" >> inventory/target
+          ansible-playbook -i inventory/target  playbooks/up.yml
+
 jobs:
-  build-test:
+  pylint-test:
     working_directory: ~/app
     executor: python/default
     steps:
@@ -46,18 +61,21 @@ jobs:
 
   deploy-prod:
     executor: python/default
-    environment:
-      - ANSIBLE_HOST_KEY_CHECKING: False
-      - TESTVAR: 123457
+      - DEPLOYENV: $HOST_PROD
     steps:
       - checkout
       - install-ansible
-      # Deploy to VM
-      - run: 
-          name: Ansible-playbook
-          command: |
-            echo "$HOST_PROD ansible_python_interpreter=/usr/bin/python3" >> inventory/target
-            ansible-playbook -i inventory/target  playbooks/up.yml
+      - deploy-to-vm
+
+  deploy-TEST:
+    executor: python/default
+    environment:
+      - DEPLOYENV: $HOST_TEST
+    steps:
+      - checkout
+      - install-ansible
+      - deploy-to-vm
+
 
 workflows:
   build-test:
