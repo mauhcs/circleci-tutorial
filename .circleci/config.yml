@@ -8,6 +8,7 @@ orbs:
 commands: 
   install-ansible:
     steps:
+      - run: echo Test Env Var $TESTVAR
       - run: pip install ansible==2.9
 
 jobs:
@@ -43,10 +44,11 @@ jobs:
       - run: |
           echo "Digest is: $(</tmp/digest.txt)"
 
-  deploy:
+  deploy-prod:
     executor: python/default
     environment:
       - ANSIBLE_HOST_KEY_CHECKING: False
+      - TESTVAR: 123457
     steps:
       - checkout
       - install-ansible
