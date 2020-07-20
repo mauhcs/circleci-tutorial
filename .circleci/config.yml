@@ -43,7 +43,7 @@ jobs:
       # build and push Docker image
       #- set-image-tag
       - run: |
-          ls
+          ls -la
           pwd
           cd $CIRCLE_PROJECT_REPONAME
           export DOCKER_TAG=`git describe --abbrev=0`
