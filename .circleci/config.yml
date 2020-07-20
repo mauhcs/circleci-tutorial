@@ -42,7 +42,7 @@ jobs:
       - checkout
       # build and push Docker image
       #- set-image-tag
-      - run: DOCKER_TAG=`git describe --abbrev=0`
+      - run: DOCKER_TAG=`bahs $CIRCLE_PROJECT_REPONAME/git describe --abbrev=0`
       - gcp-gcr/build-image:
           image: superpython
           registry-url: asia.gcr.io
