@@ -38,6 +38,8 @@ jobs:
   
   docker-build-push:
     executor: gcp-gcr/default
+    environment:
+      - DOCKER_TAG: latest
     steps:
       - checkout
       # build and push Docker image
