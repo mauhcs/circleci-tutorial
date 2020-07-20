@@ -24,7 +24,6 @@ jobs:
       - python/save-cache
       - run: python -m pylint -d=R,W,C jobs/
   
-  
   docker-build-push:
     executor: gcp-gcr/default
     environment:
