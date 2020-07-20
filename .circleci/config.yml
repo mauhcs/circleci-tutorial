@@ -10,18 +10,6 @@ commands:
     steps:
       - run: pip install ansible==2.9
 
-  set-image-tag:
-    steps:
-      - run: |
-
-          if [ -z "$CIRCLE_TAG" ]
-          then 
-            ver=`git describe --abbrev=0`;echo "export DOCKER_TAG=TEST:$ver.$CIRCLE_BUILD_NUM" >> $BASH_ENV
-          else
-            ver=`git describe --abbrev=0`;echo "export DOCKER_TAG=$ver.$CIRCLE_BUILD_NUM" >> $BASH_ENV
-          fi
-          echo DOCKER_TAG = $DOCKER_TAG
-
 
 
 jobs:
@@ -39,25 +27,20 @@ jobs:
   docker-build-push:
     executor: gcp-gcr/default
     environment:
-      - DOCKER_TAG: v0
+      - VERSION_TAG: $CIRCLE_BRANCH.v0.$CIRCLE_BUILD_NUM
     steps:
       - checkout
       # build and push Docker image
-      #- set-image-tag
-      - run: |
-          export DOCKER_TAG=`git describe --abbrev=0`
-          echo $DOCKER_TAG
-      - run: echo $DOCKER_TAG
       - gcp-gcr/build-image:
           image: superpython
           registry-url: asia.gcr.io
           dockerfile: Dockerfile
-          tag: $CIRCLE_BRANCH.$DOCKER_TAG.$CIRCLE_BUILD_NUM
+          tag: $VERSION_TAG
       - gcp-gcr/gcr-auth
       - gcp-gcr/push-image:
           image: superpython
           registry-url: asia.gcr.io
-          tag: $DOCKER_TAG.$CIRCLE_BUILD_NUM
+          tag: $VERSION_TAG
           digest-path: /tmp/digest.txt
       - run: |
           echo "Digest is: $(</tmp/digest.txt)"
