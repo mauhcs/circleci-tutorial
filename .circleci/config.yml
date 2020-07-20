@@ -31,6 +31,7 @@ jobs:
     steps:
       - checkout
       # build and push Docker image
+      - run: echo $VERSION_TAG
       - gcp-gcr/build-image:
           image: superpython
           registry-url: asia.gcr.io
