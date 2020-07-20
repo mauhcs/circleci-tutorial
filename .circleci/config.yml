@@ -27,21 +27,21 @@ jobs:
   docker-build-push:
     executor: gcp-gcr/default
     environment:
-      - VERSION_TAG: $CIRCLE_BRANCH.v0.$CIRCLE_BUILD_NUM
+      - VERSION_TAG: v0
     steps:
       - checkout
       # build and push Docker image
-      - run: echo $VERSION_TAG
+      - run: echo $CIRCLE_BRANCH.$VERSION_TAG.$CIRCLE_BUILD_NUM
       - gcp-gcr/build-image:
           image: superpython
           registry-url: asia.gcr.io
           dockerfile: Dockerfile
-          tag: $VERSION_TAG
+          tag: $CIRCLE_BRANCH.$VERSION_TAG.$CIRCLE_BUILD_NUM
       - gcp-gcr/gcr-auth
       - gcp-gcr/push-image:
           image: superpython
           registry-url: asia.gcr.io
-          tag: $VERSION_TAG
+          tag: $CIRCLE_BRANCH.$VERSION_TAG.$CIRCLE_BUILD_NUM
           digest-path: /tmp/digest.txt
       - run: |
           echo "Digest is: $(</tmp/digest.txt)"
