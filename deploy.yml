@@ -7,6 +7,8 @@
   vars:
     repo_name: "{{ lookup('env', 'CIRCLE_PROJECT_REPONAME') }}" # master.v0.12
     VMIP: ansible_host
+    dsenv: "{{ lookup('env', 'DSENV') }}" # PROD/TEST/DEV
+    tag: "{{ lookup('env', 'VERSION_TAG') }}" # master.v0.12    
   tasks:
 
     - debug: var=ansible_host
@@ -16,15 +18,21 @@
         state: directory
         mode: 0755
 
-    - name: Copy playbook
+    - name: Copy playbooks
       copy:
           src: playbooks
           dest: "/opt/favel8s/repos/{{ repo_name }}/"
 
-    - name: Copy playbook
+    - name: Copy Inventories
       copy:
           src: inventory
-          dest: "/opt/favel8s/repos/{{ repo_name }}/"        
+          dest: "/opt/favel8s/repos/{{ repo_name }}/"    
+
+
+    - name: Set Docker Env variables
+      copy:
+        content: "VERSION_TAG={{ tag }} DSENV={{ dsenv }} "
+        dest: /etc/mine.conf    
 
 
     
