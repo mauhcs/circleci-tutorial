@@ -5,10 +5,8 @@
   become_method: sudo
   gather_facts: yes
   vars:
-    repo_name: "/opt/app"
+    repo_name: "{{ lookup('env', 'CIRCLE_PROJECT_REPONAME') }}" # master.v0.12
     VMIP: ansible_host
-    service_account_file: /home/mau/credentials/data-science-273411-066f734ce5bb.json
-    project: data-science-273411  
   tasks:
 
     - debug: var=ansible_host

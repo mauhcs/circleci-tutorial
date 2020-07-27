@@ -78,8 +78,13 @@ jobs:
               
   feed-playbook:
     executor: python/default
+    environment:    
+      - ANSIBLE_HOST_KEY_CHECKING: False
     steps:
       - checkout
+      - python/load-cache
+      - install-ansible
+      - python/save-cache      
       - run: 
           name: SCP
           command: |
