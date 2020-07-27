@@ -77,7 +77,7 @@ jobs:
               ansible-playbook -i inventory/target  playbooks/up.yml   
               
   feed-playbook:
-    executor: machine
+    executor: python/default
     steps:
       - checkout
       - run: 
