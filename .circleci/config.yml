@@ -76,7 +76,6 @@ jobs:
               echo "$HOST_TEST ansible_python_interpreter=/usr/bin/python3" >> inventory/target
               ansible-playbook -i inventory/target  playbooks/up.yml    
 
-
 workflows:
   build-test:
     jobs:
