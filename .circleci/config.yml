@@ -84,7 +84,7 @@ jobs:
           name: SCP
           command: |
               ls -la
-              ssh -o StrictHostKeyChecking=no mau@$HOST_PROD 'mkdir -p /opt/favel8s/repo/$CIRCLE_PROJECT_REPONAME/playbooks'
+              ssh -o StrictHostKeyChecking=no mau@$HOST_PROD 'sudo mkdir -p /opt/favel8s/repo/$CIRCLE_PROJECT_REPONAME/playbooks'
               scp -o StrictHostKeyChecking=no -r playbooks/* mau@$HOST_PROD:/opt/favel8s/repo/$CIRCLE_PROJECT_REPONAME/playbooks/
 
 
