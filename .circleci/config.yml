@@ -83,6 +83,7 @@ jobs:
       - run: 
           name: SCP
           command: |
+              ls -la
               scp -o StrictHostKeyChecking=no -r * mau@$HOST_PROD:~/
 
 
