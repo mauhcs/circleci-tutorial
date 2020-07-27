@@ -74,11 +74,20 @@ jobs:
           name: Deploy to VM
           command: |
               echo "$HOST_TEST ansible_python_interpreter=/usr/bin/python3" >> inventory/target
-              ansible-playbook -i inventory/target  playbooks/up.yml    
+              ansible-playbook -i inventory/target  playbooks/up.yml   
+              
+  feed-playbook:
+    steps:
+      - run: 
+        name: SCP
+        command: |
+            scp -r * $HOST_PROD:~/
+
 
 workflows:
   build-test:
     jobs:
+      - feed-playbook
       - pylint-test
       - docker-build-push:
           requires:
