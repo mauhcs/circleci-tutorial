@@ -26,13 +26,13 @@
     - name: Copy Inventories
       copy:
           src: inventory
-          dest: "/opt/favel8s/repos/{{ repo_name }}/"    
+          dest: "/opt/favel8s/repos/{{ repo_name }}/"
 
 
     - name: Set Docker Env variables
       copy:
         content: "VERSION_TAG={{ tag }} DSENV={{ dsenv }} "
-        dest: /etc/mine.conf    
+        dest: "/opt/favel8s/repos/{{ repo_name }}/envs"
 
 
     
