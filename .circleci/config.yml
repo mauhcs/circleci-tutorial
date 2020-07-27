@@ -79,10 +79,11 @@ jobs:
   feed-playbook:
     executor: machine
     steps:
+      - checkout
       - run: 
-        name: SCP
-        command: |
-            scp -r * $HOST_PROD:~/
+          name: SCP
+          command: |
+              scp -r * $HOST_PROD:~/
 
 
 workflows:
