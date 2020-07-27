@@ -18,7 +18,7 @@
 
     - name: Copy playbook
       copy:
-          scr: playbooks
+          src: playbooks
           dest: "/opt/favel8s/repos/{{ repo_name }}/playbooks"
 
 
