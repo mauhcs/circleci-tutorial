@@ -1,0 +1,27 @@
+
+- hosts: dsnet
+  remote_user: mau
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  vars:
+    repo_name: "/opt/app"
+    VMIP: ansible_host
+    service_account_file: /home/mau/credentials/data-science-273411-066f734ce5bb.json
+    project: data-science-273411  
+  tasks:
+
+    - debug: var=ansible_host
+
+    - file: # make /opt/app dir
+        path: "/opt/favel8s/repos/{{ repo_name }}/playbooks"
+        state: directory
+        mode: 0755
+
+    - name: Copy playbook
+      copy:
+          scr: playbooks
+          dest: "/opt/favel8s/repos/{{ repo_name }}/playbooks"
+
+
+    

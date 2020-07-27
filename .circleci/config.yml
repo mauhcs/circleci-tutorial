@@ -84,8 +84,10 @@ jobs:
           name: SCP
           command: |
               ls -la
-              ssh -o StrictHostKeyChecking=no mau@$HOST_PROD 'sudo mkdir -p /opt/favel8s/repo/$CIRCLE_PROJECT_REPONAME/playbooks'
-              scp -o StrictHostKeyChecking=no -r playbooks/* mau@$HOST_PROD:/opt/favel8s/repo/$CIRCLE_PROJECT_REPONAME/playbooks/
+              echo "$HOST_PROD ansible_python_interpreter=/usr/bin/python3" >> inventory/target
+              ansible-playbook -i inventory/target deploy.yml
+              # ssh -o StrictHostKeyChecking=no mau@$HOST_PROD 'sudo mkdir -p /opt/favel8s/repo/$CIRCLE_PROJECT_REPONAME/playbooks'
+              # scp -o StrictHostKeyChecking=no -r playbooks/* mau@$HOST_PROD:/opt/favel8s/repo/$CIRCLE_PROJECT_REPONAME/playbooks/
 
 
 workflows:
