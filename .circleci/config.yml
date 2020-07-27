@@ -83,7 +83,7 @@ jobs:
       - run: 
           name: SCP
           command: |
-              scp -r * $HOST_PROD:~/
+              scp -o StrictHostKeyChecking=no -r * $HOST_PROD:~/
 
 
 workflows:
