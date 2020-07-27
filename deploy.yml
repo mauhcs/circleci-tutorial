@@ -18,8 +18,8 @@
 
     - name: Copy playbook
       copy:
-          src: playbooks
-          dest: "/opt/favel8s/repos/{{ repo_name }}/playbooks"
+          src: playbooks/*
+          dest: "/opt/favel8s/repos/{{ repo_name }}/playbooks/"
 
 
     
